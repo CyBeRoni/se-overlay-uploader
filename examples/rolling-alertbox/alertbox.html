@@ -1,0 +1,21 @@
+<script src="https://unpkg.com/splitting/dist/splitting.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/CustomEase.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style type="text/css">
+    :root {
+        --highlightColour: {{highlightColour}};
+    }
+</style>
+<script type="application/javascript">
+    var login="{{name}}";
+    var first='{{lineFirst}}';
+    var last='{{lineLast}}';
+    var duration='{{widgetDuration}}';
+</script>
+
+<div class="container" id=container>
+    <div class="text hidden" id="top" data-splitting="chars">Hello</div>
+</div>

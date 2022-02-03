@@ -1,0 +1,227 @@
+.alertbox-custom-html: &customhtml
+  css: !!file alertbox.css
+  html: !!file alertbox.html
+  js: !!file alertbox.js
+  fields: !!file alertbox.fields.json
+
+.alert-base: &alert-base
+        <<: *customhtml
+        animation:
+          in: none
+          inDuration: 0
+          out: none
+          outDuration: 0
+          text:
+            in: none
+            out: none
+            delay: 0
+            offset: 0
+            inDuration: 1
+            outDuration: 1
+        text:
+          message: ""
+          css:
+            highlights: ""
+        enableRandomPick: true
+        enabled: true
+        visible: true
+        duration: 15
+        layout: column
+        graphics:
+          src: ""
+          type: image
+          volume: 0.5
+        enableCustomCss: true
+        variations: []
+
+.audio-follower: &audio-follower
+  audio:
+    src: "https://cdn.streamelements.com/static/alertbox/default.ogg"
+    volume: 0.5
+    type: sound
+
+.audio-subscriber: &audio-subscriber
+  audio:
+    src: "https://cdn.streamelements.com/static/alertbox/default.ogg"
+    volume: 0.5
+    type: sound
+
+.audio-host: &audio-host
+  audio:
+    src: "https://cdn.streamelements.com/static/alertbox/default.ogg"
+    volume: 0.5
+    type: sound
+
+.audio-raid: &audio-raid
+  audio:
+    src: "https://cdn.streamelements.com/static/alertbox/default.ogg"
+    volume: 0.5
+    type: sound
+
+.audio-cheer: &audio-cheer
+  audio:
+    src: "https://cdn.streamelements.com/static/alertbox/default.ogg"
+    type: sound
+    volume: 0.5
+
+.tts-disabled: &tts-disabled
+  tts:
+    enabled: false
+    voice: Brian
+    volume: 0.75
+    minAmount: 0
+
+.tts-enabled: &tts-enabled
+  tts:
+    enabled: true
+    voice: Emma
+    volume: 0.75
+    minAmount: 0
+
+.alert-follower: &alert-follower
+  <<: *alert-base
+  <<: *audio-follower
+  <<: *tts-disabled
+
+.alert-host: &alert-host
+  <<: *alert-base
+  <<: *audio-host
+  <<: *tts-disabled
+
+.alert-raid: &alert-raid
+  <<: *alert-base
+  <<: *audio-raid
+  <<: *tts-disabled
+
+.alert-cheer: &alert-cheer
+  <<: *alert-base
+  <<: *audio-cheer
+  <<: *tts-enabled
+
+.alert-subscriber-notts: &alert-subscriber-notts
+  <<: *alert-base
+  <<: *audio-subscriber
+  <<: *tts-disabled
+
+.alert-subscriber-tts: &alert-subscriber-tts
+  <<: *alert-base
+  <<: *audio-subscriber
+  <<: *tts-enabled
+
+settings:
+  width: 1920
+  height: 1080
+  name: 1080p
+type: regular
+preview: >-
+  https://cdn.streamelements.com/assets/dashboard/my-overlays/overlay-default-preview-3.jpg
+widgets:
+  - id: 1
+    group: null
+    version: 2.2
+    type: se-widget-alert-box
+    name: AlertBox Rolling Example
+    visible: true
+    locked: false
+    listeners:
+      tip-latest: false
+      subscriber-latest: true
+      follower-latest: true
+      cheer-latest: true
+      host-latest: true
+      raid-latest: true
+      purchase-latest: false
+    css:
+      z-index: 2
+      width: 1430px
+      height: 190px
+      opacity: 1
+      top: 874px
+      left: 16px
+    variables:
+      follower:
+        <<: *alert-follower
+        fieldData:
+          lineFirst: 'New Follower'
+          lineLast: ''
+          highlightColour: '#f02193'
+      subscriber:
+        <<: *alert-subscriber-notts
+        fieldData:
+          lineFirst: 'New Subscriber'
+          lineLast: '{{tier}}'
+          highlightColour: '#7226ff'
+        variations:
+          - name: Resubscriber
+            enabled: true
+            type: amount
+            condition: ATLEAST
+            requirement: 2
+            chance: 100
+            settings:
+              <<: *alert-subscriber-tts
+              fieldData:
+                lineFirst: 'Resubscriber'
+                lineLast: '{{amount}} months {{tier}}'
+                highlightColour: '#7226ff'
+          - name: Subscriber gift
+            enabled: true
+            type: gift
+            condition: EXACT
+            chance: 100
+            settings:
+              fieldData:
+                lineFirst: 'Gift Subscription'
+                lineLast: 'From {{sender}}'
+                highlightColour: '#48ff00'
+          - name: Community gifts
+            enabled: true
+            type: communityGift
+            condition: ATLEAST
+            chance: 100
+            requirement: 0
+            settings:
+              <<: *alert-subscriber-notts
+              fieldData:
+                lineFirst: 'Community Gift'
+                lineLast: '{{amount}} {{tier}} subs'
+                highlightColour: '#48ff00'
+          - name: Twitch Prime
+            enabled: true
+            condition: EXACT
+            type: tier
+            requirement: prime
+            chance: 100
+            settings:
+              <<: *alert-subscriber-notts
+              fieldData:
+                lineFirst: 'New Subscriber'
+                lineLast: 'Prime Gaming'
+                highlightColour: '#6441a5'
+      host:
+        <<: *alert-host
+        minAmount: 1
+        fieldData:
+          lineFirst: 'Host'
+          lineLast: '{{amount}} Viewers'
+          highlightColour: '#ffa34e'
+      raid:
+        <<: *alert-raid
+        fieldData:
+          lineFirst: 'Raid'
+          lineLast: '{{amount}} Viewers'
+          highlightColour: '#51dd87'
+      cheer:
+        <<: *alert-cheer
+        fieldData:
+          lineFirst: 'Cheer'
+          lineLast: '{{amount}} bits'
+          highlightColour: '#57dcfa'
+        showMessage: false
+    provider: twitch
+mobile: false
+campaign: false
+favorite: false
+_id: id_goes_here
+name: Rolling Example Alerts
+game: null

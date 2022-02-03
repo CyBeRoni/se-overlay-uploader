@@ -1,0 +1,59 @@
+:root {
+  --magnitude: 175%;
+}
+
+/* Recommended styles for Splitting */
+.splitting .word,
+.splitting .char {
+  display: inline-block;
+}
+
+div {
+
+  font-size: 100px;
+  font-family: Montserrat;
+  font-weight: 700;
+  /* text-shadow: 0 0 25px white; */
+}
+
+.top {
+  top: 100px;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+}
+
+.colour .char {
+  color: var(--highlightColour);
+}
+
+.text {
+  filter: drop-shadow(0 0 25px white);
+
+  /* text-align: center; */
+  white-space: nowrap;
+  position: absolute;
+  width: 100%;
+  color: #FFF;
+  overflow: hidden;
+  /* background: red; */
+}
+
+.hidden .char {
+  opacity: 0;
+}
+
+.container {
+  padding: 20px;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+*::after, *::before {
+  display: none;
+  visibility: hidden;
+}

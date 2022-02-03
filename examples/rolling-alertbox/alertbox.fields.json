@@ -1,0 +1,17 @@
+{
+    "lineFirst": {
+      "type": "text",
+      "label": "First Line",
+      "value": "Follower"
+    },
+    "lineLast": {
+      "type": "textfield",
+      "label": "Last Line",
+      "value": ""
+    },
+    "highlightColour": {
+      "type": "colorpicker",
+      "label": "Username highlight colour",
+      "value": "#f02193"
+    }
+  }
